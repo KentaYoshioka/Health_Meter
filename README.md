@@ -30,42 +30,44 @@
 
 ## 使用方法
 ### show_cutout.py
-python3 show_cutout.py [-h] [--input INPUTDATA] [--start STARTFRAME] [--end ENDFRAME] [--save]
+python3 show_cutout.py [-h] [--start STARTFRAME] [--end ENDFRAME] [--save] --input INPUTDATA
 + optional arguments:
   + -h, --help
     + Show this help message and exit
-  + --input INPUTDATA
-    + Imput file (mp4_filename)
   + --start STARTFRAME
     + Set start of frame (frame_number default: 0)
   + --end ENDFRAME
     + Set end of frame (frame_number default: end_of_input_data)
   + --save
     + Save showed data
+  + --input INPUTDATA
+    + Imput file (mp4_filename)
 
 ### detect_track.py
-python3 detect_track.py [-h] [--model MODEL] [--type DETECTTYPE] [--save_csv CSVFILE] [--save_mov OUTPUTDATA]
-[--framesize SIZE] [--fps FPS] [--limit DETECTEDPEOPLE]  [--outlier VALIDATION]
-
+python3 detect_track.py [-h] [--fps FPS] [--framesize SIZE]  [--type DETECTTYPE] [--limit DETECTEDPEOPLE]
+[--model MODEL] [--outlier VALIDATION] [--save_csv CSVFILE] [--save_mov OUTPUTDATA] --input INPUTDATA
 + optional arguments:
   + -h, --help
     + Show this help message and exit
-  + --model MODEL
-    + Set model_data (default: 'model/yolov8n.pt')
+  + --fps FPS
+    + Set FPS (default: 20)
+  + --framesize SIZE
+    + Set width and heigh of framesize (default: '1920,1080')
   + --type DETECTTYPE
     + Set evaluation (default: 1)
+  + --limit DETECTEDPEOPLE
+    + Set numuber of detected people (default: 100000)
+  + --model MODEL
+    + Set model_data (default: 'model/yolov8n.pt')
+  + --outlier VALIDATION
+    + Set validation (default: 1000)
   + --save_csv CSVFILE
     + Save result to csv (dedault: 'output_csv/{datetime}.csv')
   + --save_mov OUTPUTDATA
     + Save result to mp4 (dedault: 'output_data/{datetime}.mp4')
-  + --framesize SIZE
-    + Set width and heigh of framesize (default: '1920,1080')
-  + --fps FPS
-    + Set FPS (default: 20)
-  + --limit DETECTEDPEOPLE
-    + Set numuber of detected people (default: 100000)
-  + --outlier VALIDATION
-    + Set validation (default: 1000)
+  + --input INPUTDATA
+    + Imput file (mp4_filename)
+
 
 ## 環境構築
 ### Dockerを使用する場合
