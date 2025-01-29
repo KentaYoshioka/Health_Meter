@@ -1,0 +1,22 @@
+<h1>作業者一覧</h1>
+
+<% if @performers.present? %>
+  <table>
+    <thead>
+      <tr>
+        <th>作業者番号</th>
+        <th>作業者名</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @performers.each do |performer| %>
+        <tr>
+          <td><%= performer.num %></td>
+          <td><%= performer.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>データがありません。</p>
+<% end %>

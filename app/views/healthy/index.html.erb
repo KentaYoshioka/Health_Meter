@@ -1,0 +1,25 @@
+<h1>元気ランキング</h1>
+
+<% if @performers.present? %>
+  <table>
+    <thead>
+      <tr>
+        <th>順位</th>
+        <th>作業者名</th>
+        <th>平均値</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @performers.each_with_index do |performer, index| %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td><%= performer[:name] %></td>
+          <td><%= performer[:average_value] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>データがありません。</p>
+<% end %>
+

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HealthMeter</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- サイドナビゲーション -->
+      <nav class="sidebar">
+        <div class="sidebar-header">
+          <h2 class="sidebar-purpose">Health Meter</h2>
+          <h4 class="sidebar-title">体調診断補助システム</h4>
+        </div>
+        <ul>
+          <li>
+            <a href="<%= home_url %>" data-turbo="false" class="<%= 'active' if current_page?(controller: 'home', action: 'index') %>">
+              HOME
+            </a>
+          </li>
+          <li>
+            <a href="<%= performers_url %>" data-turbo="false" class="<%= 'active' if current_page?(controller: 'performers', action: 'index') %>">
+              作業者一覧
+            </a>
+          </li>
+          <li>
+            <a href="<%= unhealthy_index_url %>" data-turbo="false" class="<%= 'active' if current_page?(controller: 'unhealthy', action: 'index') %>">
+              体調不良一覧
+            </a>
+          </li>
+          <li>
+            <a href="<%= healthy_url %>" data-turbo="false" class="<%= 'active' if current_page?(controller: 'healthy', action: 'index') %>">
+              元気ランキング
+            </a>
+          <li style="position: absolute; bottom: 20px; left: 40px;">
+            <a href="<%= input_index_url %>" data-turbo="false" class="<%= 'active' if current_page?(controller: 'inputs', action: 'index') %>">
+              動画を追加する
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <main class="content">
+        <%= yield %>
+      </main>
+    </div>
+  </body>
+</html>

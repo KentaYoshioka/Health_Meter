@@ -1,0 +1,37 @@
+<div class="container">
+  <nav class="sidebar">
+    <ul>
+      <li><a href="/">HOME</a></li>
+      <li><a href="/performers">作業者一覧</a></li>
+      <li><a href="/unhealthy">体調不良一覧</a></li>
+      <li><a href="/ranking" class="active">元気ランキング</a></li>
+    </ul>
+  </nav>
+
+  <main class="content">
+    <h1>体調確認ランキング</h1>
+
+    <% if @performers.present? %>
+      <table>
+        <thead>
+          <tr>
+            <th>作業者名</th>
+            <th>パフォーマンス更新日</th>
+            <th>問題のある運動数</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @performers.each do |performer| %>
+            <tr>
+              <td><%= performer[:name] %></td>
+              <td><%= Date.parse(performer[:latest_performance_date]).strftime('%Y-%m-%d') if performer[:latest_performance_date].present? %></td>
+              <td><%= performer[:low_z_count] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p>データがありません。</p>
+    <% end %>
+  </main>
+</div>

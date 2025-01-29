@@ -1,0 +1,27 @@
+<h1>体調不良一覧</h1>
+
+<% if @performers.present? %>
+  <table>
+    <thead>
+      <tr>
+        <th>作業者名</th>
+        <th>パフォーマンス更新日</th>
+        <th>問題のある運動数</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @performers.each do |performer| %>
+        <tr onclick="window.location='<%= unhealthy_path(performer[:id]) %>'" style="cursor: pointer;">
+          <td><%= performer[:name] %></td>
+          <td><%= Date.parse(performer[:latest_performance_date]).strftime('%Y-%m-%d') if performer[:latest_performance_date].present? %></td>
+          <td><%= performer[:low_z_count] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>データがありません。</p>
+<% end %>
+
+
+

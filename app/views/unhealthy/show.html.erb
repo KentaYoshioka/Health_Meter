@@ -1,0 +1,87 @@
+<h1>パフォーマンス詳細</h1>
+<p>作業者名: <%= @performer_name %></p>
+<p>パフォーマンス日付: <%= @latest_date %></p>
+
+<% if @video_path.present? %>
+  <div class="video-container">
+    <video id="performance-video" controls autoplay muted preload="metadata" width="640" height="360">
+      <source src="<%= @video_path %>" type="video/mp4">
+      このブラウザは video タグをサポートしていません。
+    </video>
+  </div>
+<% else %>
+  <p>関連する動画が見つかりませんでした。</p>
+<% end %>
+
+<% if @problematic_activities.present? %>
+  <h2>問題のある運動一覧</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>運動名</th>
+        <th>再生</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @problematic_activities.each do |activity| %>
+        <tr>
+          <td><%= @activity_types[activity[:type]] %></td>
+          <td>
+            <button class="play-activity" data-index="<%= activity[:type] %>">
+              再生する
+            </button>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>問題のある運動はありません。</p>
+<% end %>
+<script>
+const video = document.getElementById("performance-video");
+const totalActivities = 13;
+const initialSkipDuration = 13;
+let videoDuration = 0;
+
+video.addEventListener("loadedmetadata", () => {
+  videoDuration = video.duration;
+  console.log("Video metadata loaded. Total Duration:", videoDuration);
+
+  const effectiveDuration = videoDuration - initialSkipDuration;
+  if (effectiveDuration <= 0) {
+    console.error("Effective duration is too short. Cannot divide.");
+    return;
+  }
+
+  console.log("Effective Duration (without first 13 seconds):", effectiveDuration);
+
+  const playButtons = document.querySelectorAll(".play-activity");
+  console.log("Play buttons found:", playButtons.length);
+
+  playButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      const index = parseInt(button.dataset.index, 10) - 1;
+      console.log("Button clicked. Index:", index);
+
+      if (effectiveDuration > 0) {
+        const segmentDuration = effectiveDuration / totalActivities;
+        const startTime = initialSkipDuration + (index * segmentDuration);
+        console.log("Segment duration:", segmentDuration);
+        console.log("Calculated start time:", startTime);
+
+        video.currentTime = startTime;
+        video.play();
+        console.log("Video playback started at:", startTime);
+      } else {
+        console.warn("Effective video duration is 0. Cannot calculate start time.");
+      }
+    });
+  });
+});
+
+video.addEventListener("error", (e) => {
+  console.error("Video error:", e);
+});
+
+</script>
